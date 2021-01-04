@@ -1,0 +1,30 @@
+//for문(중첩반복문)을 사용해서 만든  구구단 
+
+for(int m=2; m<=9; m++) {
+			System.out.println("****" + m +"단 ****");
+			for(int n =1; n<=9; n++) {
+				System.out.println(m + "x" + n + " = " + m*n);
+        
+        
+        
+// scanner   사용해서 만든 구구단. 
+
+import java.util.Scanner;
+
+public class calu {
+	public static void main(String[] args) {
+		String inputKey;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("구구단 몇 단을 출력할까요?");
+		inputKey = scan.next();
+		scan.close();
+	int key = Integer.parseInt(inputKey);
+	timesTable(key);
+	}
+public static void timesTable(int step) {
+	System.out.println("\n" + step + "단");
+	for (int j = 1; j < 10; j++) {
+		System.out.println(step + "*" + j + "=" + step * j );
+	}
+} 
+} 
