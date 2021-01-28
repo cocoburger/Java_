@@ -1,0 +1,81 @@
+package com.obj.controller;
+
+import com.obj.model.vo.MemberVariable;
+import com.obj.model.vo.PublicTest;
+
+public class ObjController {
+
+	public void accessObj() {
+		접근제한자에 따른 클래스 이용가능 여부
+		클래스를 이용하기 위해서는 new연산자로 생성(객체화)을 해야한다.
+		new 클래스명 ()   <------- class를 생성한 것. heap에 객체생성
+	
+		PublicTest pt = new PublicTest();  //주소값을 대입한다. //클래스의 이름은 한 개의 타입이다
+		PublicTest는 참조형 자료형 why? 주소값을 대입했기때문에!
+
+		default 접근제한자 클래스 생성하기 -> 같은 패키지가 아니면 접근이 불가능함.
+		//DefaultTest dt = new DefaultTest();
+		
+		class 저장소 선언 // 다양한 자료의 데이터를 저장하는 기능
+			필드 표현식
+			[접근제한자][예약어]class 클래스명 {
+			[접근제한자][예약어]자료형 변수명[=초기값];
+			}
+    
+		  <필드 예시>
+		  public class Academy {
+			public int temp1;
+			protected int temp2;
+			int temp3;     //접근제한자 생략 시 default
+			private int temp4; //캡슐화 원칙으로 private 사용
+		
+		
+ 	구분          |       해당클래스 내부       |        같은 패키지 내       |    후손클래스 내     |   전체
+  (+) public	  |			      	O			        |			        	O			       |		           O		  |    O
+  (#) protected	|				      O			        |			        	O			       |		           O      |
+  (~)	default		|			          	O			    |			        	O            |                      |
+  (-)	private		|			          	O         |                            |					            |                
+		
+	}
+		
+    
+    
+	  public void memberVari() {
+		멤버변수 활용 및 접근제한자 테스트하기
+		MemberVariable mv = new MemberVariable();
+		mv.name="이다혜";//public접근제한자.
+		mv.age = 19;  //The field MemberVariable.age is not visible 접근제한자가 막아놔서 접근을 할 수 없다. default는 같은 패키지 내에서만 가능
+		mv.height = 180.5; //private 접근제한자
+		
+		
+		System.out.println(mv.name); //mv.getName() / mv.setName("유병승");
+		System.out.println(mv.age); //접근제한자로 접근이 제한된 변수는 메소드를 이용함.
+		
+		MemberVariable mv1 = new MemberVariable();
+		System.out.println(mv1.name);
+		
+		mv는 new를 사용하여 MemberVariable를 복사하여 대입했다.
+		하지만 아래줄에 name에 이다혜를 대입했으니 값은 장원배 -> 이다혜로 바뀜 
+		so, 출력하면 이다혜가나온다
+		mv1도 MemberVariable을 복사했다. 그런데 출력 시 이다혜가 아닌 장원배가 나온다..
+		그 이유는
+		mv는 복사 후에 이다혜라는 값을 대입해준것이고
+		mv1은 MemberVariable클래스를 복사해서 넣었기 memberVariable에 name은 장원배이기때문이다.
+		
+		static변수에 접근하기
+		static변수는 heap이 아닌 static영역에 존재하여 멤버변수와 접근하는 방식이 다름!
+		클래스를 생성하지 않고 사용이 가능!!
+	
+		MemberVariable.gameTitle="툼레이더";
+		MemberVariable.bonus=0.2;
+		System.out.println(MemberVariable.bonus);
+		MemberVariable mv2  = new MemberVariable();
+		System.out.println("mv0 : "+ mv.memberId);
+		System.out.println("mv1 : "+ mv1.memberId);
+		System.out.println("mv2 : "+ mv2.memberId);
+
+   }
+}
+	
+	
+
