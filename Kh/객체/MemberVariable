@@ -1,0 +1,67 @@
+package com.obj.model.vo;
+
+public class MemberVariable {
+	
+	//멤버변수 선언하기
+	//접근제한자 예약어  자료형 변수명;
+  
+	public String name  = "장원배";
+	int age = 29;
+	private double height = 198.7;
+	
+	//멤버변수의 예약어
+  
+	//static, final
+	//static : 공공장소에 저장되는 것, 클래스변수
+	public static String gameTitle;
+	public static double bonus;  
+	//final : 상수 고정값. 변하지 않는 값
+	public final int MYAGE=19;  //final는 대문자를 사용
+	private static int count = 0;
+	public int memberId;
+	
+	
+	
+	//초기화블록
+	//멤버변수의 값에 초기값을 대입할 때 사용하는것
+  
+	{ //멤버변수에 값들을 초기화할 수 있다.
+		//인스턴스 초기화 블록
+		//new 연산자로 클래스를 생성할때마다 실행
+		name="유인나";
+		age = 27;
+		height = 166.5;
+		MYAGE=19;
+		if(bonus == 0.0) {
+			bonus = 2.0;
+		}
+	memberId = ++count;
+	System.out.println("초기화블록실행");
+	}
+	static {
+		//static으로 선언된 변수를 초기화하는것
+		//없다!
+		count=100;//static 변수
+		bonus=22;//static변수 /클래스 변수
+		//age=50;//멤버변수
+		System.out.println("static블록");
+	}
+	
+	
+	public void test() {
+  
+		//클래스 내부에서는 접근연산자 없이 사용
+    
+		name="유병승";
+		age = 20;
+		height=180.5;
+    
+		//정확하게 접근하는 방식
+    
+		this.name ="하하하";
+		this.age = 19;
+		this.height = 180.5;
+		
+		System.out.println(age);
+	}
+}
