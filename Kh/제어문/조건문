@@ -1,0 +1,270 @@
+package com.condition.controller;
+
+
+import java.util.Scanner;
+
+import com.condition.run.Main;
+
+
+public class ConditionController {
+
+	public void ifTest() {
+		//if문 활용하기
+		//if(조건식) {  로직  }
+		Scanner sc =new Scanner(System.in);
+
+
+		//이름을 입력받고 자신과 이름이 동일하면
+		//나는 코딩왕이 될꺼야!
+
+		System.out.print("내이름이 뭐라고?  ");
+		String name = sc.next();
+		if(name.equals("유인범")) {
+			System.out.println("그래 난 유인범 포기를 모르는 남자지");
+
+		//문자열과 문자열 동등비교 -> equals();
+		//name.equals("유인나");
+
+		}
+
+		//국어, 영어 , 수학점수를 입력받고 평균이 60점이상이면
+		//합격입니다. 출력하기
+		System.out.print("(국어) (영어) (수학) 순으로 점수를 입력 해주세요 : ");
+		int ko = sc.nextInt();
+		int en = sc.nextInt();
+		int ma = sc.nextInt();
+
+		if((ko + en + ma)/3.0 >= 60) {
+			System.out.println("합격입니다.");
+		}else {
+			System.out.println("나가뒤집시쇼 형님");
+			
+			/*
+			 * System.out.print("국어 : ");
+			 * int sum+=sc.nextInt();
+			 * System.out.print("영어 : ");
+			 * int sum+=sc.nextInt();
+			 * System.out.print("수학 : ");
+			 * int sum+=sc.nextInt();
+			 * if(sum/3.0>=60){
+			 * System.out.print("합격입니다");
+			 * }
+			 */
+
+		}
+		//if 범위 밖에 있는 변수에 접근이 가능한가?
+		
+	}
+
+
+	public void ifelseTest() {
+		//if ~ else문은 한 개 그룹
+		//else 예약어는 독립적으로 (혼자) 사용이 불가능 하다.
+		//if~else 문을 사용하면 if나 else의 내용 둘 중 하나는 무조건 실행
+		
+		
+		//입력 받은 수가 양수면 양수, 음수면 음수라고 출력해보자.
+		Scanner sc = new Scanner(System.in);
+		System.out.print("정수입력 : ");
+		int su =sc.nextInt();
+		
+		
+		if(su>=0) { 
+			System.out.println("양수");
+		}else {
+			System.out.println("음수");
+		}
+		//미성년자 회원가입을 못하고
+		//성년이면 회원가입을 하는 로직 구성하기
+
+		System.out.print("나이를 입력해주세요 : ");
+		int age = sc.nextInt();
+		if(age < 20) {
+			System.out.println("죄송합니다. 미성년자는 회원가입이 불가능합니다.");
+		}
+		else {
+			sc.nextLine();
+			System.out.println("회원가입이 가능합니다.");
+			System.out.println("=== 회원가입 ===");
+			System.out.print("이름 : ");
+			String name = sc.nextLine();
+			System.out.print("키 : ");
+			double height = sc.nextDouble();
+		}
+			
+		}
+		
+		public void ifelseifTest() {
+			//성적등급
+			Scanner sc = new Scanner(System.in);
+			System.out.print("성적입력 : ");
+			int record = sc.nextInt();   //if else if문은 한개의 값만 나온다.
+			if(record>=90&&record<=100) {   //90~100점 사이
+				System.out.println("A등급");
+
+				}else if (90>record && record>= 80) {     	//89~80점 사이
+				System.out.println("B등급");
+
+
+				}else if(80>record && record>= 70) {			//79~70점 사이
+				System.out.println("C등급");
+
+
+				}else if(70>record && record>= 60) {			//69~60점 사이
+				System.out.println("D등급");
+
+				}else if(record <= 59) {							//59점이하
+				System.out.println("F등급");
+				}else {
+				System.out.println("다시 입력해주세요.");
+				}
+			
+			
+//			if(record >=90) {
+//			System.out.println("A등급");dkRK
+//			}
+//		if(80 <= record) {   // if문을 두 갤 쓰면 if문 두개 다 값이 true이면 if문 두개의 다 값을 출력한다. 
+//			System.out.println("B등급");
+//			}
+
+		//연령별 메세지 출력하기
+		//나이를 입력받고
+
+		System.out.print("나이를 입력해주세요 :" );
+		int age = sc.nextInt();
+		
+		if(age >= 60) {
+			System.out.println("인생을 잘 사셨나요? ");
+		}
+		
+		else if(age >= 50) {
+			System.out.println("열심히 일해야지-> 노후를 살지");
+		}
+		else if(age >= 40) {
+			System.out.println("열심히 일해야지 -> 가족들 먹여살리지");
+		}
+
+		else if(age >= 30) {
+			System.out.println("열심히 일해야지 -> 결혼하지");
+		}
+		else if(age >= 20) {
+			System.out.println("열심히 공부해야지 -> 취업하지");
+		}	
+		else  if(age >= 60){
+			System.out.println("열심히 공부해야지 -> 좋은 대학가지");
+		
+		}else {
+			
+		}
+		//아이디와 패스워드를 입력받고
+		//아이디가 user01 패스워드 user01 이면 로그인성공
+		//아이디가 user01이고 패스워드 user01 이 아니면 패스워드가 틀립니다.
+		//아이디가 user01아니고 패스워드 user01 이 아니면 모드 패스워드가 틀립니다.
+		//아이디가 
+		
+		sc.nextLine();
+		System.out.print("아이디를 입력해주세요 : ");
+		String id = sc.nextLine();
+		
+		System.out.print("패스워드를 입력해주세요 : ");
+		String pass = sc.nextLine();
+		
+		if(id.equals("user01") && pass.equals("user01")) {
+			System.out.println("로그인 성공");
+		}
+		else if(id.equals("user01") && !pass.equals("user01")) {
+			System.out.println("패스워드가 틀립니다.");
+		}
+		else if(!id.equals("user01") && pass.equals("user01")) {
+			System.out.println("아이디가 틀립니다.");
+		}
+			
+		else if(!id.equals("user01") && !pass.equals("user01")) {
+			System.out.println("모두 틀립니다.");
+		}
+}
+			
+		
+		public void ifinifTest() {
+			//if() { if() { }} -> 가능하다.
+			//외부 if는 내부 if의 전제조건
+			//나이가 성인이면서, 내국인이면 회원가입진행,
+			//나이가 성인이면서, 외국인이면 외국인 등록번호 확인 후
+			//회원가입 진행
+			Scanner sc = new Scanner(System.in);
+			System.out.print("나이 : ");
+			int age =sc.nextInt();
+			if(age > 19) {
+				System.out.print("1. 내국인 2. 외국인 : ");
+				int cho = sc.nextInt();
+				if(cho == 1) {
+					System.out.print("===== 회원가입 =====");
+				}else if(cho==2){
+					System.out.print("외국인 등록번호 있니?(1. 있다    2. 없다)");
+					int cho2 = sc.nextInt();
+					if(cho2 == 1) {
+						System.out.print("회원가입완료");
+					}	
+					
+					else {
+						System.out.print("외국인 등록번호 없으실, 회원가입이 불가능합니다.");
+						}
+					
+					}	
+					else {
+						System.out.println("잘못 입력하셨습니다.");
+					}
+					sc.close();
+				}
+			}
+		
+		
+		public void switchTest() {
+			Scanner sc = new Scanner(System.in);
+			System.out.println("==== 오늘의 저녁메뉴 ====");
+			System.out.println("1.햄버거");
+			System.out.println("2.빠에야");
+			System.out.println("3.쌀국수");
+			System.out.println("4.소고기");
+			System.out.println("5.닭가슴살");
+			System.out.print("입력 : ");
+			int choice = sc.nextInt();
+			
+			switch(choice) {
+				case 1 : System.out.println("버거킹"); break;
+				case 2 : System.out.println("스페인 대표음식");break;
+				case 3 : System.out.println("베트남의 대표음식");break;
+				case 4 : System.out.println("한우는 항상 입을 즐겁게 만들어줘");break;
+				case 5 : System.out.println("운동했으면 먹어야지 닭찌찌");break;
+				default : System.out.println("위의 메뉴중에 골라 이자슥아");
+			}
+			
+		System.out.println("=== 후식 ===");
+		System.out.println("가.커피 나.사탕 다.콜라 라.아이스크림");
+			System.out.print("입력 : ");
+			char cho = sc.next().charAt(0); //case의 value와 동일해야한다. 자료타입이  char 이니깐 '가' int였으면 1  //가나를 입력해도 charAt(0) 문자열을 가져오는거니깐 에러가 나지 않고 설정해놓은 문자만 가져온다 
+			switch (cho) {
+			case '가': System.out.println("아메리카노");break;
+			case '나': System.out.println("사탕 수수"); break;
+			case '다': System.out.println("콜라는 코카콜라 제로콜라 펩시는 이단아");
+			
+			}
+			System.out.println("====== 공부메뉴 ======");
+			System.out.println("변수 연산자 조건문");
+			System.out.print("입력 : ");
+			String cho2 = sc.next();
+			switch(cho2) {
+				case "변수" : System.out.println("저장공간 너무쉽다!");
+				case "연산자" : System.out.println("연산처리 너무 쉽다.");break;
+				case "조건문" : System.out.println("too easy");break;
+				
+				//switch문에는 int형, char형, String이 올 수 있다. 다른것들은 안돼요
+				
+			 }
+   }
+}
+		
+		
+		
+   
+
