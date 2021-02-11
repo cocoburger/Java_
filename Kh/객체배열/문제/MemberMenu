@@ -1,0 +1,314 @@
+package com.kh.hw.member.view;
+
+import java.util.Scanner;
+
+import com.kh.hw.member.controller.MemberController;
+
+public class MemberMenu {
+
+	public MemberMenu() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	Scanner sc = new Scanner(System.in);
+	MemberController mc = new MemberController();
+	
+	//메인 메뉴 출력 메소드
+	public void mainMenu() {
+		System.out.println("=================================================================");
+		System.out.println("최대 등록 가능한 회원 수는" +mc.existMemberNum()+ "입니다.");
+		System.out.println("현재 등록된 회원 수는 "+mc.existMemberNum()+"입니다.");
+		System.out.println("=================================================================");
+		System.out.println();
+		
+		if(mc.existMemberNum() != 10) {
+			while(true) {
+				System.out.println("==================== 회원 관리 프로그램 =====================");
+				System.out.println("1. 새 회원 등록");
+				System.out.println("2. 회원 검색");
+				System.out.println("3. 회원 정보 수정");
+				System.out.println("4. 회원 삭제");
+				System.out.println("5. 모두 출력");
+				System.out.println("9. 끝내기");
+//				System.out.println("10. 회원삭제");
+//				System.out.println("11. 회원삭제확인");
+//				System.out.println("11. 전체회원삭제확인");
+//				System.out.println("11. 전체회원");
+				System.out.println("=====================");
+				System.out.print("메뉴 번호 : ");
+				int cho = sc.nextInt();
+					switch(cho) {
+						case 1 : insertMember(); break;
+						case 2 : searchMember(); break;
+						case 3 : updateMember(); break;
+						case 4 : deleteMember(); break;
+						case 5 : printAll(); break;
+						case 9 : System.out.println("프로그램 종료"); return;
+						default : System.out.println("잘 못 입력하셨습니다. 다시 입력해주세요");
+						
+					}
+		}
+		
+		
+		
+//			
+		}else {
+			System.out.println("===============================");
+			System.out.println("2. 회원 검색");
+			System.out.println("3. 회원정보 수정");
+			System.out.println("4. 회원 삭제");
+			System.out.println("5. 모두 출력");
+			System.out.println("9. 끝내기");
+			System.out.print("메뉴 번호 : ");
+			int cho1 = sc.nextInt();
+			switch(cho1) {
+			case 2 : searchMember(); break;
+			case 3 : updateMember(); break;
+			case 4 : deleteMember(); break;
+			case 5 : printAll(); break;
+			case 9 : System.out.println("프로그램 종료");
+			return;
+			default : System.out.println("잘 못 입력하셨습니다. 다시 입력해주세요");
+			}
+		}while(true);
+	} 
+
+		//회원등록하기 위한 데이터를 사용자에게 입력받는 메소드
+		public void insertMember() {
+			System.out.println("========= 회원 가입 ==========");
+			String id;
+			while(true) {
+			System.out.print("아이디 :");
+			id = sc.nextLine();
+			if(mc.checkId(id) == false) {
+				break;
+			}else {
+				System.out.println("중복된 아이디입니다. 다시 입력해주세요.");
+				}
+			}
+			System.out.print("이름 :");
+			String name = sc.nextLine();
+			System.out.print("패스워드 :");
+			String password = sc.nextLine();
+			System.out.print("이메일 :");
+			String email = sc.nextLine();
+			char gen;
+			while(true) {  //성별을 잘 못 입력시에 반복해서 다시 입력 받을 수 있게 하기 위함.
+				System.out.print("성별(M/F) :");
+				gen = sc.next().charAt(0);  
+			
+				sc.nextLine();
+				if(gen == 'M' || gen == 'm' || gen =='F' || gen =='f') {
+					break;
+				}else {
+					System.out.println("성별을 다시 입력하세요");
+				}
+			}
+			System.out.print("나이 :");
+			int age = sc.nextInt();
+			sc.nextLine();
+			mc.insertMember(id, name, password, email, gen, age);
+		}
+		public void searchMember() {
+			System.out.println("=============회원 검색 메뉴 =============");
+			System.out.println("1. 아이디로 검색하기");
+			System.out.println("2. 이름으로 검색하기");
+			System.out.println("3. 이메일로 검색하기");
+			System.out.println("9. 메인으로 돌아가기");
+			System.out.print("메뉴 번호 : ");
+			int num = sc.nextInt();
+			switch(num) {
+			case 1 : searchId();break;
+			case 2 : searchName();break;
+			case 3 : searchEmail();break;
+			case 9 : System.out.println("메인으로 돌아갑니다.");return;
+			default : System.out.println("잘못 입력하셨습니다.");return;
+			}
+		}
+		
+		public void searchId() {
+			System.out.println("=========== 아이디 검색 메뉴 ===========");
+			System.out.print("아이디 검색 : ");
+			String id = sc.nextLine();
+			if(mc.searchId(id) == null) {
+				System.out.println("검색 결과가 없습니다.");
+			}else {
+				System.out.println("찾으신 회원 조회 결과입니다.");
+				System.out.println(mc.searchId(id)); //String inform() 값으로 출력
+			}
+			
+		}
+		
+		public void searchName() {
+			System.out.println("=========== 이름 검색 메뉴 ===========");
+			System.out.print("이름 검색 : ");
+			String name = sc.nextLine();
+			if(mc.searchName(name) == null) {
+				System.out.println("검색 결과가 없습니다.");
+			}else {
+				System.out.println("찾으신 회원 조회 결과입니다.");
+				System.out.println(mc.searchName(name));
+			}
+		}
+		
+		public void searchEmail() {
+			System.out.println("=========== 이메일 검색 메뉴 ===========");
+			System.out.print("이메일 검색 : ");
+			String email = sc.nextLine();
+			if(mc.searchEmail(email) == null) {
+				System.out.println("검색 결과가 없습니다.");
+			}else {
+				System.out.println("찾으신 회원 조회 결과입니다.");
+				System.out.println(mc.searchEmail(email));
+			}
+		}
+		
+		public void updateMember() {
+			System.out.println("======================= 회원정보 수정 메뉴 =========================");
+			System.out.println("1.비밀번호 수정하기");
+			System.out.println("2.이름 수정하기");
+			System.out.println("3.이메일 수정하기");
+			System.out.println("9.메인으로 돌아가기");
+			System.out.print("메뉴 번호 : ");
+			int num = sc.nextInt();
+			switch(num) {
+			case 1 : updatePassword();break;
+			case 2 : updateName();break;
+			case 3 : updateEmail();break;
+			case 9 : System.out.println("메인으로 돌아갑니다"); return;
+			default : System.out.println("잘 못 입력하셨습니다."); return;
+			}
+		}
+		
+		
+		
+		
+		
+		// 수정할 회원 id와 이름을 사용자에게 입력 받고 입력 받은 데이터를
+		// mc의 updateName() 메소드의 매개변수로 넘김, 반환 값에 따라
+		// 검색결과 없으면 “존재하지 않는 아이디입니다.” 출력, mainMenu()로 감
+		// 검색 결과가 있으면 “수정이 성공적으로 되었습니다.” 출력 후
+		// mainMenu()로 돌아감
+		
+		public void updateName() {
+			System.out.println("============ 이름 수정 메뉴 =============");
+			System.out.println("수정하실 아이디 : ");
+			String id = sc.nextLine();
+			System.out.println("수정하실 이름 : ");
+			String name = sc.nextLine();
+			if(mc.updateName(id, name) == true) {
+				System.out.println("수정이 성공적으로 되었습니다.");
+			}else {
+				System.out.println("존재하지 않는 아이디입니다.");
+			}
+		}
+		
+		
+		
+		
+		
+		
+		// 수정할 회원 id와 비밀번호를 사용자에게 입력 받고 입력 받은 데이터를
+		// mc의 updatePassword() 메소드의 매개변수로 넘김, 반환 값에 따라
+		// 검색결과 없으면 “존재하지 않는 아이디입니다.” 출력, mainMenu()로 감
+		// 검색 결과가 있으면 “수정이 성공적으로 되었습니다.” 출력 후
+		// mainMenu()로 돌아감
+		public void updatePassword() {
+			System.out.println("================= 비밀번호 수정 메뉴 ==================");
+			System.out.print("수정 하실 아이디 : ");
+			String id = sc.nextLine();
+			System.out.print("수정 하실 비밀번호 : ");
+			String pass = sc.nextLine(); 
+			if(mc.pdatePassword(id, password) == true) {
+				System.out.println("수정이 성공적으로 되었습니다.");
+			}else {
+				System.out.println("존재하지 않는 아이디입니다.");
+			}
+			
+		}
+		
+		public void updateEmail() {
+			System.out.println("================ 이메일 수정 메뉴=================");
+			System.out.print("수정하실 아이디 : ");
+			String id = sc.nextLine();
+			System.out.print("수정하실 이메일 : ");
+			String email = sc.nextLine();
+			if(mc.updateEmail(id,email) == true) {
+				System.out.println("수정이 성공적으로 되었습니다.");
+			}else {
+				System.out.println("존재하지 않느 아이디입니다.");
+			}
+		}
+		
+	//	1. 특정 회원 삭제하기 è deleteOne()
+	//	2. 모든 회원 삭제하기 è deleteAll()
+	//	9. 메인으로 돌아기기
+		// 메뉴 번호에 따라 각 메소드로 이동되며 9번을 입력했을 경우
+		// “메인으로 돌아갑니다.” 출력 후 mainMenu()로 돌아감
+		// 메뉴 번호를 잘못 입력했을 경우 “잘못 입력하셨습니다.” 출력 후
+		// mainMenu()로 돌아감
+		
+		public void deleteMember() {
+			System.out.println("========== 회원정보 삭제 메뉴=============");
+			System.out.println("1. 특정 회원 삭제");
+			System.out.println("2. 모든 회원 삭제");
+			System.out.println("9. 메인으로 돌아가기");
+			System.out.print("메뉴 번호 : ");
+			int num = sc.nextInt();
+			switch(num) {
+			case 1 : deleteOne(); break;
+			case 2 : deleteAll(); break;
+			case 9 : System.out.println("메인으로 돌아갑니다"); return;
+			default : System.out.println("잘못 입력하셨습니다."); return;
+			}
+		}
+		
+		// 삭제할 회원 id를 사용자에게 입력 받고 정말 삭제할 것인지 사용자에게
+		// 물어본 뒤, Y나 y를 사용자가 입력할 경우 입력 받은 id를
+		// mc의 delete() 메소드의 매개변수로 넘김, 반환 값에 따라
+		// 검색결과 없으면 “존재하지 않는 아이디입니다.” 출력, mainMenu()로 감
+		// 검색 결과가 있으면 “성공적으로 삭제하였습니다.” 출력 후
+		// mainMenu()로 돌아감
+		
+		
+		public void deleteOne() {
+			System.out.print("삭제하실 회원 아이디 : ");
+			String id = sc.nextLine();
+			System.out.println("정말로 삭제하시겠습니까?(Y/N)");
+			char cho = sc.next().charAt(0);
+			if(cho.equals('Y')||cho.equals("y")) {
+				if(mc.delet(id)==true) {
+					System.out.println("성공적으로 삭제하였습니다.");
+				}else {
+					System.out.println("존재하지 않는 아이디입니다.");
+					}
+			}else {
+				System.out.println("메인으로 돌아갑니다.");
+			}
+		}
+		
+		// 정말 삭제할 것인지 사용자에게 물어본 뒤, Y나 y를 사용자가 입력할 경우
+		// mc의 delete() 메소드 호출, “성공적으로 삭제하였습니다.” 출력 후
+		// mainMenu()로 돌아감
+		public void deleteAll() {
+			System.out.println("정말 삭제하시겠습니까?(Y/N)");
+			char cho = sc.next().charAt(0);
+			if(cho.eqauls('Y')||cho.equals('y')) {
+				mc.delete();
+				System.out.println("성공적으로 삭제되었습니다.");
+			}else {
+				System.out.println("메인으로 돌아갑니다.");
+			}
+		}
+		
+		// mc의 printAll() 메소드의 반환 값을 가지고 저장된 회원을 출력하는데
+		// 저장된 회원의 수가 0명이면 “저장된 회원이 없습니다.” 출력,
+		// 0명이 아니면 저장된 모든 회원의 정보 출력
+		public void printAll(){
+			if(mc.existMemberNum() != 0) {
+				System.out.println("=========== 전체 회원 출력 ===========");
+			}else ㅑㄹ(mc.existMemberNum() == 0) {
+				System.out.println("저장된 회원이 없습니다.");
+			}
+		}
+	}
