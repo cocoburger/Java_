@@ -1,0 +1,107 @@
+package com.kh.hw.member.controller;
+
+import com.kh.hw.member.model.vo.Member;
+
+public class MemberController {
+		
+		private Member[] m = new Member[10];
+		
+		//현재 존재하는 멤버 수 반환
+		public int existMemberNum() {
+			int count = 0;
+			for(Member i : m) {
+				if(i!=null) {
+					count+=1;
+				}
+			}
+			return count;
+		}
+		
+		public boolean checkId(String id) { //회원가입시 중복되는 아이디 check
+			for(Member i : m) {
+				if(i!=null&&i.getName().equals(id)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+			public void insertMember(String id, String name, String password, String email, char gender, int age) {
+				Member mem = new Member(id,name,password,email,gender,age);
+				for(int i = 0; i<m.length; i++)
+				{	if(m[i]==null) { //m에 Member을 대입했다. 
+					m[i]=mem;
+					break;
+				}
+			}	
+		}
+			public String searchId(String id) {
+				for(Member i : m) {
+					if(i!=null&&i.getId().equals(id)) {
+						return i.inform(); // 
+					}
+				}
+				return null;
+			}
+			public Member searchName(String name) {
+				for(Member i : m) {
+					if(i!=null && i.getName().equals(name)) {
+						return i;
+					}
+				}
+				return null;
+			}
+			public Member searchEmail(String email) {
+				for(Member i : m) {
+					if(i!=null&&i.getEmail().equals(email)) {
+						return i;
+					}
+				}
+				return null;
+			}
+			public boolean updatePassword(String id, String password) {
+				for(Member i : m) {
+					if(i!=null&&i.getId().equals(id)) { //i가 null값이 아니고 업데이트하고자 할 id가 있으면
+						i.setPassword(password); //패스워드를 변경한다.
+						return true; //패스워드를 리턴해준다.
+					}
+				}
+				return false;
+			}
+			public boolean updateName(String id, String name) {
+				for(Member i : m) {
+					if(i!=null & i.getId().equals(id)) {
+						i.setName(name);
+						return true;
+					}
+				}
+				return false;
+			}
+			
+			public boolean updateEmail(String id, String email) {
+				for(Member i : m) {
+					if(i!=null && i.getId().equals(id)) {
+						i.setEmail(email);
+						return true;
+					}
+				}
+				return false;
+			}
+			public boolean delete(String id) {
+				for(Member i : m) {
+					if(i!=null&&i.getId().equals(id)) { //m이 null값이 아니면 데이터를 가지고 있다는 뜻이고 
+						i=null;  //삭제시키고 싶은 아이디를 입력하여 그 아이디가 존재하면 그 아이디의 값을 null로 초기화시킨다.
+					}
+				}
+				return false;
+			}
+			public void delete() {
+				for(Member i : m) {
+				i=null;
+				}
+			}
+			
+			public Member[] printAll() {
+				return m;
+			}
+		}
