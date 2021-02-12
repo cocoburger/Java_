@@ -1,107 +1,126 @@
-package com.kh.hw.member.controller;
+package objectarray.controller;
 
-import com.kh.hw.member.model.vo.Member;
+import objectarray.member.model.vo.Member;
 
 public class MemberController {
-		
-		private Member[] m = new Member[10];
-		
-		//현재 존재하는 멤버 수 반환
-		public int existMemberNum() {
-			int count = 0;
-			for(Member i : m) {
-				if(i!=null) {
-					count+=1;
-				}
+	public int SIZE = 10;
+	Member[] m = new Member[SIZE];
+	
+	//최대 등록 가능한 회원 수는 10명입니다. 현재 등록된 회원 수는 0명입니다.
+	// MemberController(mc)클래스 안에 있는 멤버필드를 이용하여
+	// 최대 등록 가능한 회원 수가 몇 명인지 출력
+	// 또한 현재 등록된 회원 수는 mc에 existMemberNum()의 반환 값으로
+	// 몇 명이 등록되어 있는지 출력
+	
+	//몇 명 등록되어있는지 확인하기 위해 count 변수를 만들고 
+	//객체배열을 for each문으로 반복한다.
+	//if문을 사용해 i가 null값이 아니면, 회원등록이 되어있는 것을 말한다.
+	//i!=null이면, +1을 해준다. ex) 10명이 등록되어있으면 10을 리턴한다.
+	
+	
+	public int existMemberNum() {  
+		int count = 0;
+		for(Member i : m) {
+			if(i != null) {
+			count+=1;
 			}
-			return count;
 		}
-		
-		public boolean checkId(String id) { //회원가입시 중복되는 아이디 check
-			for(Member i : m) {
-				if(i!=null&&i.getName().equals(id)) {
-					return true;
-				}
+		return count;
+	}
+	
+	public boolean checkId(String inputid) {
+		for(Member i : m) {
+			if(i!=null&&i.getId().equals(inputid)) {
+				return true;  //중복되는 id가 있다 -> 다른 아이디 입력
 			}
-			return false;
 		}
+		return false; //중복되는 id가없다 계속진행
+	}
+	
+	//Member객체를 객체배열에 저장하는 메소드
+	public void insertMember (String id, String name, String password, String email, char gender, int age) {
+		Member member = new Member(id, name, password, email, gender, age); //mc.insertMember(id, name, password, email, gender, age); 매개변수가 new Member 매개변수이다. 
+																			//객체 생성을 통해 입력받은 id,name 등을 member에 대입		 	//클래스에 매개변수 있는 생성자!!
+		for(int i = 0; i<m.length; i++) {
+			if(m[i] == null) {  //m이 null값이면 저장할 수 있다는 의미이다.
+				m[i] = member; //member를 m에 대입한다.
+				break; 
+			}
+		}
+	}
+	
+	public String searchId(String id) {
+		for(Member i : m){
+			if(i != null && i.getId().equals(id)) {
+				return i.inform();
+			}
+		}
+		return null;  //m이 null값이거나 동일한 id가없으면 null로 리턴해준다.
+	}
+	
+	public Member searchName(String name) {
+		for(Member i : m) {
+			if(i != null && i.getName().equals(name)) {
+				return i;
+			}
+		}
+		return null;
+	}
+	
+	public Member searchEmail(String email) {
+		for(Member i : m ) {
+			if(i!=null && i.getEmail().equals(email)) {
+				return i;
+			}
+		}
+		return null;
+	}
 
-			public void insertMember(String id, String name, String password, String email, char gender, int age) {
-				Member mem = new Member(id,name,password,email,gender,age);
-				for(int i = 0; i<m.length; i++)
-				{	if(m[i]==null) { //m에 Member을 대입했다. 
-					m[i]=mem;
-					break;
-				}
-			}	
-		}
-			public String searchId(String id) {
-				for(Member i : m) {
-					if(i!=null&&i.getId().equals(id)) {
-						return i.inform(); // 
-					}
-				}
-				return null;
-			}
-			public Member searchName(String name) {
-				for(Member i : m) {
-					if(i!=null && i.getName().equals(name)) {
-						return i;
-					}
-				}
-				return null;
-			}
-			public Member searchEmail(String email) {
-				for(Member i : m) {
-					if(i!=null&&i.getEmail().equals(email)) {
-						return i;
-					}
-				}
-				return null;
-			}
-			public boolean updatePassword(String id, String password) {
-				for(Member i : m) {
-					if(i!=null&&i.getId().equals(id)) { //i가 null값이 아니고 업데이트하고자 할 id가 있으면
-						i.setPassword(password); //패스워드를 변경한다.
-						return true; //패스워드를 리턴해준다.
-					}
-				}
-				return false;
-			}
-			public boolean updateName(String id, String name) {
-				for(Member i : m) {
-					if(i!=null & i.getId().equals(id)) {
-						i.setName(name);
-						return true;
-					}
-				}
-				return false;
-			}
-			
-			public boolean updateEmail(String id, String email) {
-				for(Member i : m) {
-					if(i!=null && i.getId().equals(id)) {
-						i.setEmail(email);
-						return true;
-					}
-				}
-				return false;
-			}
-			public boolean delete(String id) {
-				for(Member i : m) {
-					if(i!=null&&i.getId().equals(id)) { //m이 null값이 아니면 데이터를 가지고 있다는 뜻이고 
-						i=null;  //삭제시키고 싶은 아이디를 입력하여 그 아이디가 존재하면 그 아이디의 값을 null로 초기화시킨다.
-					}
-				}
-				return false;
-			}
-			public void delete() {
-				for(Member i : m) {
-				i=null;
-				}
-			}
-			
-			public Member[] printAll() {
-				return m;
+	public boolean updatePassword(String id, String password) {
+		for(Member i : m) {
+			if(i != null && i.getId().equals(id)) {
+				i.setPassword(password);
+				return true;
 			}
 		}
+		return false;
+	}
+	public boolean updateName(String id, String name) {
+		for(Member i : m) {
+			if(i != null && i.getName().equals(name)) {
+				i.setName(name);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean updateEmail(String id, String email) {
+		for(Member i : m) {
+			if(i != null && i.getId().equals(id) ) {  //m이 null값이 아니고 아이디가 존재한다면
+				i.setEmail(email); //수정한 이메일로 업데이트한다.
+				return true; // 리턴값을 true으로 한다.
+			}
+		}
+		return false;
+	}
+	
+	public boolean delete(String id) {
+		for(int i = 0; i<m.length; i++) {
+			if(m[i]!=null&& m[i].getId().equals(id)) { //입력받은 값이 null값이 아니고 삭제하고싶은 id가 있다면 null로 초기화를 해주고. 리턴값으로 true을 준다.
+				m[i]=null;
+				return true;
+			}
+		}
+			return false;
+	}
+	
+	public void delete() {
+		for(int i = 0; i<m.length; i++) {
+			m[i]=null;
+		}
+	}
+	public Member[] printAll() {
+		return m;
+	}
+}
